@@ -1,0 +1,86 @@
+{%  extends 'base.html' %}
+
+{% load static %}
+{% block title %}{{ book.name }}{%  endblock %}
+{% block body %}
+    <nav class="navbar navbar-default color-nav">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">
+                    <img class="img-icon" src="{{ MEDIA_URL }}/image/icon.png">
+                </a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right color-text">
+                <li><a class ="color-text" href="{% url 'add_url' id %}">Читать книгу</a></li>
+<li><a class ="color-text" href="/create_book/">Добавить книгу</a></li>
+                    {% if user.is_authenticated %}
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle color-text color-nav" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ user.username }} <span class="caret"></span></a>
+                            <ul class="dropdown-menu color-text color-nav">
+                                <li><a href="/logout/">Выйти</a></li>
+                            </ul>
+                        </li>
+                        {% else %}
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle color-text color-nav" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Вход или регистрация <span class="caret"></span></a>
+                            <ul class="dropdown-menu color-text color-nav">
+                                <li><a href="/login/"> Войти </a></li>
+                                <li><a href="/register/">Регистрация</a></li>
+                            </ul>
+                        </li>
+
+                        {% endif %}
+
+
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+      </nav>
+    <div>
+    <p class="error">{{ error }}</p>
+    <p class="good">{{ message }}</p>
+    <p class="error">{{ uze }}</p>
+    {% for i in book %}
+            <div class="col-md-6">
+                <img class="img-inform" src="{{MEDIA_URL}}{{ i.picture }}">
+            </div>
+            <div class="col-md-6">
+                <div class="m-inf osn-color color-ss alert alert-success" role="alert">
+                    Название: {{ i.name }}
+                </div>
+                <div class="m-inf osn-color color-ss alert alert-success" role="alert">
+                    Автор: {{ i.author }}
+                </div>
+                <div class="m-inf osn-color color-ss alert alert-success" role="alert">
+                    Год: {{ i.year }}
+                </div>
+                <div class="osn-color color-ss alert alert-success" role="alert">
+                    Описание: {{ i.description }}
+                </div>
+                <div>
+                    <div style="background-color: #CCCCFF" class="m-inf osn-color color-ss alert alert-success" role="alert">
+                        Читатели:
+                    </div>
+                    {% for i in users %}
+                        <div class="m-inf osn-color color-ss alert alert-success" role="alert">
+                            {{ i.user_id }}
+                        </div>
+
+                    {% endfor %}
+                </div>
+            </div>
+
+    {% endfor %}
+
+    </div>
+{% endblock %}

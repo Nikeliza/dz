@@ -1,0 +1,98 @@
+{%  extends 'base.html' %}
+{% load static %}
+{% block title %}Регестрация{%  endblock %}
+{% block body %}
+    <div>
+        <form class="form-signin" method="POST">
+            {%  csrf_token %}
+            {% if form.non_field_errors  %}
+                {% for error in form.non_field_errors %}
+                    <div class="error">
+                            {{ error|escape }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+            <div class="form-group row">
+                <label for="example-text-input" class="col-xs-2 col-form-label">Логин</label>
+                <div class="col-xs-10">
+                    {{ form.login }}
+                </div>
+            </div>
+            {% if form.login.errors %}
+                    {% for error in form.login.errors %}
+                        <div class="error">
+                            {{ error|escape }}
+                        </div>
+
+                    {% endfor %}
+            {% endif %}
+            <div class="form-group row">
+                <label for="example-password-input" class="col-xs-2 col-form-label">Password</label>
+                <div class="col-xs-10">
+                    {{ form.password }}
+                </div>
+            </div>
+            {% if form.password.errors %}
+                    {% for error in form.password.errors %}
+                        <div class="error">
+                            {{ error|escape }}
+                        </div>
+                    {% endfor %}
+            {% endif %}
+            <div class="form-group row">
+                <label for="example-password-input" class="col-xs-2 col-form-label">Password2</label>
+                <div class="col-xs-10">
+                    {{ form.password2 }}
+                </div>
+            </div>
+            {% if form.password2.errors %}
+                    {% for error in form.password2.errors %}
+                        <div class="error">
+                            {{ error|escape }}
+                        </div>
+                    {% endfor %}
+            {% endif %}
+
+            <div class="form-group row">
+                <label for="example-email-input" class="col-xs-2 col-form-label">Email</label>
+                <div class="col-xs-10">
+                    {{ form.email }}
+                </div>
+            </div>
+            {% if form.email.errors %}
+                    {% for error in form.email.errors %}
+                        <div class="error">
+                            {{ error|escape }}
+                        </div>
+                    {% endfor %}
+            {% endif %}
+            <div class="form-group row">
+                <label for="example-email-input" class="col-xs-2 col-form-label">Фамилия</label>
+                <div class="col-xs-10">
+                    {{ form.surname }}
+                </div>
+            </div>
+            {% if form.surname.errors %}
+                    {% for error in form.surname.errors %}
+                        <div class="error">
+                            {{ error|escape }}
+                        </div>
+                    {% endfor %}
+            {% endif %}
+            <div class="form-group row">
+                <label for="example-email-input" class="col-xs-2 col-form-label">Имя</label>
+                <div class="col-xs-10">
+                    {{ form.name }}
+                </div>
+            </div>
+            {% if form.name.errors %}
+                    {% for error in form.name.errors %}
+                        <div class="error">
+                            {{ error|escape }}
+                        </div>
+                    {% endfor %}
+            {% endif %}
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Зарегистрироваться</button>
+        </form>
+    </div>
+{% endblock %}

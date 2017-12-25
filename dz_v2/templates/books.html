@@ -1,0 +1,122 @@
+
+{%  extends 'base.html' %}
+{% load static %}
+{% block title %}Книги{%  endblock %}
+{% block body %}
+    <nav class="navbar navbar-default color-nav">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">
+                    <img class="img-icon" src="{{ MEDIA_URL }}image/icon.png">
+                </a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right color-text">
+                    <li><a class ="color-text" href="/create_book/">Добавить книгу</a></li>
+                    {% if user.is_authenticated %}
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle color-text color-nav" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ user.username }} <span class="caret"></span></a>
+                            <ul class="dropdown-menu color-text color-nav">
+                                <li><a href="/logout/">Выйти</a></li>
+                            </ul>
+                        </li>
+                        {% else %}
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle color-text color-nav" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Вход или регистрация <span class="caret"></span></a>
+                            <ul class="dropdown-menu color-text color-nav">
+                                <li><a href="/login/"> Войти </a></li>
+                                <li><a href="/register/">Регистрация</a></li>
+                            </ul>
+                        </li>
+
+                        {% endif %}
+
+
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+      </nav>
+    <div class="size-osn">
+
+        {% for contact in contacts %}
+    {# Each "contact" is a Contact model object. #}
+            <div class="alert alert-success osn-color" role="alert">
+                <img class="img-size" src="{{ MEDIA_URL }}{{ contact.picture }}">
+                <span class="color-ss"><a class="color-ss" href="{% url 'book_url' contact.id %}">
+                    {{ contact.name }} {{ contact.author }}
+                </a></span>
+            </div>
+        {% empty %}
+            <li>пустой список</li>
+        {% endfor %}
+
+        <nav aria-label="...">
+            <ul class="pagination">
+                {% if contacts.has_previous %}
+                    <li class="active">
+                        <span class="pag-color" >
+                            <a class="pag-color" aria-hidden="true" href="?page={{ contacts.previous_page_number }}">&laquo;</a>
+                        </span>
+                    </li>
+                {% else %}
+                    <li class="disabled">
+                        <span class="pag-color" >
+                            <span class="pag-color" aria-hidden="true">&laquo;</span>
+                        </span>
+                    </li>
+                {% endif %}
+                {% if contacts.paginator.num_pages <= 4 %}
+                    {% for j in range %}
+                        <li class="active">
+                            <span><a style="color:black !important;" aria-hidden="true" href="?page={{ j }}">{{ j }}</a><span class="sr-only">(current)</span></span>
+                        </li>
+                    {% endfor %}
+
+                {% else %}
+                    <li class="active">
+                        <span>1 <span class="sr-only">(current)</span></span>
+                    </li>
+                    <li class="active">
+                        <span>...<span class="sr-only">(current)</span></span>
+                    </li>
+                    {% for j in range %}
+                         <li class="active">
+                            <span><a style="color:black !important;" aria-hidden="true" href="?page={{ j }}">{{ j }}</a><span class="sr-only">(current)</span></span>
+                        </li>
+                    {%  endfor %}
+                    <li class="active">
+                        <span>...<span class="sr-only">(current)</span></span>
+                    </li>
+                    <li class="active">
+                        <span>{{ contacts.paginator.num_pages }} <span class="sr-only">(current)</span></span>
+                    </li>
+                {% endif %}
+
+
+                {% if contacts.has_next %}
+                    <li class="active">
+                        <span class="pag-color" >
+                            <a class="pag-color" aria-hidden="true" href="?page={{ contacts.next_page_number }}">&raquo;</a>
+                        </span>
+                    </li>
+                {% else %}
+                    <li class="disabled">
+                        <span class="pag-color" >
+                            <span aria-hidden="true">&raquo;</span>
+                        </span>
+                    </li>
+                {% endif %}
+
+            </ul>
+        </nav>
+    </div>
+{% endblock %}

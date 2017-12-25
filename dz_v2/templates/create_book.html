@@ -1,0 +1,131 @@
+{%  extends 'base.html' %}
+{% load static %}
+{% block title %}Добавление книги{%  endblock %}
+{% block body %}
+    <nav class="navbar navbar-default color-nav">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">
+                    <img class="img-icon" src="{{ MEDIA_URL }}/image/icon.png">
+                </a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+                       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right color-text">
+<li><a class ="color-text" href="/create_book/">Добавить книгу</a></li>
+                    {% if user.is_authenticated %}
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle color-text color-nav" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ user.username }} <span class="caret"></span></a>
+                            <ul class="dropdown-menu color-text color-nav">
+                                <li><a href="/logout/">Выйти</a></li>
+                            </ul>
+                        </li>
+                        {% else %}
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle color-text color-nav" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Вход или регистрация <span class="caret"></span></a>
+                            <ul class="dropdown-menu color-text color-nav">
+                                <li><a href="/login/"> Войти </a></li>
+                                <li><a href="/register/">Регистрация</a></li>
+                            </ul>
+                        </li>
+
+                        {% endif %}
+
+
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+      </nav>
+    <div>
+        <form class="form-signin" method="POST" enctype="multipart/form-data">
+            {%  csrf_token %}
+            {% if form.non_field_errors  %}
+                {% for error in form.non_field_errors %}
+                    <div class="error">
+                            {{ error|escape }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+            {% if form.name.errors %}
+                    {% for error in form.name.errors %}
+                        <div class="error">
+                            {{ error|escape }}
+                        </div>
+
+                    {% endfor %}
+            {% endif %}
+            <div class="form-group row">
+                <label for="example-text-input" class="col-xs-2 col-form-label">Название</label>
+                <div class="col-xs-10">
+                    {{ form.name }}
+                </div>
+            </div>
+            {% if form.author.errors %}
+                    {% for error in form.author.errors %}
+                        <div class="error">
+                            {{ error|escape }}
+                        </div>
+
+                    {% endfor %}
+            {% endif %}
+            <div class="form-group row">
+                <label for="example-text-input" class="col-xs-2 col-form-label">Автор</label>
+                <div class="col-xs-10">
+                    {{ form.author }}
+                </div>
+            </div>
+            {% if form.year.errors %}
+                    {% for error in form.year.errors %}
+                        <div class="error">
+                            {{ error|escape }}
+                        </div>
+
+                    {% endfor %}
+            {% endif %}
+            <div class="form-group row">
+                <label for="example-text-input" class="col-xs-2 col-form-label">Год создания</label>
+                <div class="col-xs-10">
+                    {{ form.year }}
+                </div>
+            </div>
+
+            {% if form.description.errors %}
+                    {% for error in form.description.errors %}
+                        <div class="error">
+                            {{ error|escape }}
+                        </div>
+
+                    {% endfor %}
+            {% endif %}
+            <div class="form-group row">
+                <label for="example-text-input" class="col-xs-2 col-form-label">Описание</label>
+                <div class="col-xs-10">
+                    {{ form.description }}
+                </div>
+            </div>
+            {% if form.picture.errors %}
+                    {% for error in form.picture.errors %}
+                        <div class="error">
+                            {{ error|escape }}
+                        </div>
+
+                    {% endfor %}
+            {% endif %}
+            <div class="form-group row">
+                <label class="col-xs-2 col-form-label">Логотип</label>
+                <div class="col-xs-10">
+                    {{ form.picture }}
+                </div>
+            </div>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Создать книгу</button>
+        </form>
+    </div>
+{% endblock %}

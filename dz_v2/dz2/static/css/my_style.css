@@ -1,0 +1,68 @@
+.razm{
+    max-width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+.form-signin{
+    max-width: 60%;
+    padding: 15px;
+    margin: 0 auto;
+}
+.error{
+    color: red;
+}
+.good{
+    color: green;
+}
+
+.img-inform{
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.img-icon{
+    max-width: 40px;
+    max-height: 40px;
+    margin-top: -10px;
+}
+
+.color-nav{
+    background-color: #eae7db !important;
+}
+
+.color-text{
+    color: black !important;
+}
+
+body{
+    background-image: url(fon.png);
+}
+
+.img-size{
+    max-width: 100px;
+    max-height: 100px;
+}
+
+.size-osn{
+    max-width: 70%;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.osn-color{
+    background-color: #F4E9CB;
+}
+.color-ss{
+    color:black !important;
+    margin-left:auto;
+    margin-right:auto;
+    text-align: center;
+}
+.pag-color{
+    color:black !important;
+    background-color: white !important;
+}
+
+.m-inf{
+    margin-bottom: 0px !important;
+}
